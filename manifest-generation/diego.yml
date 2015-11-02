@@ -15,16 +15,18 @@ update:
   max_in_flight: 1
   serial: false
 
-networks:
+default-networks:
   - name: diego1
     type: manual
-    subnets: (( iaas_settings.subnet_configs.diego1.subnets ))
+    subnets: (( iaas_settings.subnet_configs.diego1.subnets || nil ))
   - name: diego2
     type: manual
-    subnets: (( iaas_settings.subnet_configs.diego2.subnets ))
+    subnets: (( iaas_settings.subnet_configs.diego2.subnets || nil ))
   - name: diego3
     type: manual
-    subnets: (( iaas_settings.subnet_configs.diego3.subnets ))
+    subnets: (( iaas_settings.subnet_configs.diego3.subnets || nil ))
+
+networks: (( merge || default-networks ))
 
 resource_pools:
   - name: access_z1
@@ -681,7 +683,7 @@ properties:
       bbs:
         api_url: (( "http://bbs.service.cf.internal:8889" ))
       host_key: (( property_overrides.ssh_proxy.host_key || "" ))
-      servers: (( jobs.access_z1.networks.diego1.static_ips jobs.access_z2.networks.diego2.static_ips jobs.access_z3.networks.diego3.static_ips jobs.colocated_z1.networks.diego1.static_ips jobs.colocated_z2.networks.diego2.static_ips jobs.colocated_z3.networks.diego3.static_ips ))
+      servers: (( jobs.access_z1.networks.diego1.static_ips jobs.access_z2.networks.diego2.static_ips jobs.access_z3.networks.diego3.static_ips jobs.colocated_z1.networks.diego1.static_ips jobs.colocated_z2.networks.diego2.static_ips jobs.colocated_z3.networks.diego3.static_ips || [] ))
       enable_cf_auth: (( property_overrides.ssh_proxy.enable_cf_auth || false ))
       enable_diego_auth: (( property_overrides.ssh_proxy.enable_diego_auth || false ))
       uaa_secret: (( config_from_cf.uaa.clients.ssh-proxy.secret || nil ))
