@@ -746,7 +746,7 @@ base_releases:
 base_job_templates:
   brain:
     - name: consul_agent
-      release: cf
+      release: (( iaas_settings.consul_agent_release || cf ))
     - name: auctioneer
       release: diego
     - name: converger
@@ -757,7 +757,7 @@ base_job_templates:
     - name: rep
       release: diego
     - name: consul_agent
-      release: cf
+      release: (( iaas_settings.consul_agent_release || cf ))
     - name: garden
       release: garden-linux
     - name: rootfses
@@ -774,21 +774,21 @@ base_job_templates:
     - name: cc_uploader
       release: diego
     - name: consul_agent
-      release: cf
+      release: (( iaas_settings.consul_agent_release || cf ))
     - name: metron_agent
       release: cf
   route_emitter:
     - name: route_emitter
       release: diego
     - name: consul_agent
-      release: cf
+      release: (( iaas_settings.consul_agent_release || cf ))
     - name: metron_agent
       release: cf
   access:
     - name: ssh_proxy
       release: diego
     - name: consul_agent
-      release: cf
+      release: (( iaas_settings.consul_agent_release || cf ))
     - name: metron_agent
       release: cf
     - name: receptor
@@ -801,7 +801,7 @@ base_job_templates:
     - name: bbs
       release: diego
     - name: consul_agent
-      release: cf
+      release: (( iaas_settings.consul_agent_release || cf ))
     - name: metron_agent
       release: cf
   colocated:
@@ -814,7 +814,7 @@ base_job_templates:
     - name: converger
       release: diego
     - name: consul_agent
-      release: cf
+      release: (( iaas_settings.consul_agent_release || cf ))
     - name: etcd
       release: diego
     - name: file_server
