@@ -26,7 +26,7 @@ default-networks:
     type: manual
     subnets: (( iaas_settings.subnet_configs.diego3.subnets || nil ))
 
-networks: (( merge || default-networks ))
+networks: (( iaas_settings.networks || default-networks ))
 
 resource_pools:
   - name: access_z1
